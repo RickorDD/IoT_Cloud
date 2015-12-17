@@ -35,7 +35,7 @@ void loop()
 
 void recieveData()
 {
-	incoming = Serial1.readString();
+    incoming = Serial1.readString();
     StaticJsonBuffer<200> jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(incoming);
     int Pin  = root["Pin"].as<int>();
@@ -45,11 +45,11 @@ void recieveData()
  
     if (State==1)
     	{
- 	   		digitalWrite(Pin,HIGH);
+ 	   digitalWrite(Pin,HIGH);
     	}
     if (State==0)
     	{
-          	digitalWrite(Pin,LOW);
+           digitalWrite(Pin,LOW);
         }
  }
 

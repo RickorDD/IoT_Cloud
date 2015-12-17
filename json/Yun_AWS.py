@@ -4,7 +4,6 @@ import ssl
 import serial
 import time
 
-
 #Serialport (Serial1.x) from Yun
 ser = serial.Serial('/dev/ttyATH0',57600,timeout=0)
 
@@ -66,5 +65,5 @@ while True:
     
         #Publish message
         client.publish(topic,payload,qos,retain)
-    
-    time.sleep(300)
+    else:    
+        time.sleep(0.1);
