@@ -59,11 +59,12 @@ while True:
         ser.flush() #for clear Serialbuffer
         decoded = json.loads(serdata)
           
-        #JSON String for AWS IoT
+        #JSON String for AWS IoT with formatting of float points
         awsstring = {'state':{ 'reported': {'temperature': '%.2f' % decoded['temperature'],'humidity': '%.2f' % decoded['humidity'] }}}
         payload = json.dumps(awsstring)
     
         #Publish message
         client.publish(topic,payload,qos,retain)
+    #else statement when not receive json string
     else:    
         time.sleep(0.1);
