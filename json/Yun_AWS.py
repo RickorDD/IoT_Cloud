@@ -57,14 +57,19 @@ while True:
     serdata=ser.readline().strip('\n\r')
     if serdata!="":
         ser.flush() #for clear Serialbuffer
-        decoded = json.loads(serdata)
-          
-        #JSON String for AWS IoT with formatting of float points
-        awsstring = {'state':{ 'reported': {'temperature': '%.2f' % decoded['temperature'],'humidity': '%.2f' % decoded['humidity'] }}}
-        payload = json.dumps(awsstring)
-    
-        #Publish message
-        client.publish(topic,payload,qos,retain)
+        try:
+            decoded = json.loads(serdata)
+            #JSON String for AWS IoT with formatting of float points
+            awsstring = {'state':
+                        { 'reported': 
+                        {'temperature': '%.2f' % decoded['temperature'],
+                         'humidity': '%.2f' % decoded['humidity'] }}}
+            
+            payload = json.dumps(awsstring)
+            #Publish message
+            client.publish(topic,payload,qos,retain)
+        except:
+            print ("message not a JSON!")  
     #else statement when not receive json string
     else:    
         time.sleep(0.1);
